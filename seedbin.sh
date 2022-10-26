@@ -7,8 +7,6 @@ dir=$(pwd)
 # Run create_seed_files.py
 python3 create_seed_files.py
 
-cd seedman
-
 echo "Building seedman exec"
 
 GOOS=linux GOARCH=amd64 go build -o bin/seedman_linux_amd64
