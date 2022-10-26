@@ -16,9 +16,9 @@ os.environ["PGDATABASE"] = "infinity"
 
 print("Creating pg_dump")
 
-os.system("rm -rf seedman/schema.sql seedman/seed_data.json")
+os.system("rm -rf schema.sql seed_data.json")
 
-code = os.system(f"pg_dump --verbose -Fc --schema-only --no-owner -d infinity > seedman/schema.sql")
+code = os.system(f"pg_dump --verbose -Fc --schema-only --no-owner -d infinity > schema.sql")
 
 print("Exited with code", code)
 
@@ -83,11 +83,11 @@ async def main():
         cleaned_seed.append(seed_inf)
 
     # Write the seed data to a file
-    with open("seedman/seed_data.json", "w") as f:
+    with open("seed_data.json", "w") as f:
         json.dump(cleaned_seed, f)
 
     # Save seed versioning info in a file as well
-    with open("seedman/seed_meta.json", "w") as f:
+    with open("seed_meta.json", "w") as f:
         json.dump({
             "nonce": secrets.token_urlsafe(16),
             "version": VERSION,
@@ -95,12 +95,12 @@ async def main():
         }, f)
 
     # update this file to increment version
-    with open("seedman/create_seed_files.py") as f:
+    with open("create_seed_files.py") as f:
         lines = f.readlines()
     
     lines[0] = f"VERSION = {VERSION + 1} # Auto-updated on {datetime.datetime.now()}\n"
 
-    with open("seedman/create_seed_files.py", "w") as f:
+    with open("create_seed_files.py", "w") as f:
         f.writelines(lines)
 
 asyncio.run(main())

@@ -4,13 +4,8 @@ dir=$(pwd)
 
 # Check if $dir ends with /seedman
 
-if [[ $dir =~ "seedman" ]]; then
-    echo "In seedman dir. Changing directory to ../"
-    cd ../
-fi
-
 # Run create_seed_files.py
-python3 seedman/create_seed_files.py
+python3 create_seed_files.py
 
 cd seedman
 
